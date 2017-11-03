@@ -1,0 +1,42 @@
+@import '../functions/sass-encodeuri.scss';
+
+// 线性渐变背景
+// 
+// @include backgroundLinear('to right', $start, $end);
+// @include backgroundLinear('to left', $start, $end);
+// @include backgroundLinear('to top', $start, $end);
+// @include backgroundLinear('to bottom', $start, $end);
+
+@mixin background-linear($direction:'to right', $start: #ffffff, $end: #000000) {
+  background-color: $end;  
+
+  @if $direction == 'to right' {
+     /* Saf4+, Chrome */
+    background-image: -webkit-gradient(linear, left bottom, right bottom, from($start), to($end));
+    background-image: linear-gradient(to right, $start, $end);
+  }
+
+  @if $direction == 'to left' {
+     /* Saf4+, Chrome */
+    background-image: -webkit-gradient(linear, right bottom, left bottom, from($start), to($end));
+    background-image: linear-gradient(to left, $start, $end);
+  }
+
+  @if $direction == 'to top' {
+     /* Saf4+, Chrome */
+    background-image: -webkit-gradient(linear, left bottom, left top, from($start), to($end));
+    background-image: linear-gradient(to top, $start, $end);
+  }
+
+  @if $direction == 'to bottom' {
+     /* Saf4+, Chrome */
+    background-image: -webkit-gradient(linear, left top, left bottom, from($start), to($end));
+    background-image: linear-gradient(to bottom, $start, $end);
+  }
+}
+
+
+@mixin encoded-svg-background-i($svg) {
+  $url: encodeURI($svg);
+  background-image: url($url);
+}

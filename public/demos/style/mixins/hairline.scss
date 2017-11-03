@@ -1,0 +1,194 @@
+// 1 px 实现函数
+// 
+// 四边框: @include hairline('all', #007fff, 5px)
+// 上边框: @include hairline('top', #007fff, 5px)
+// 右边框: @include hairline('right', #007fff, 5px)
+// 下边框: @include hairline('bottom', #007fff, 5px)
+// 左边框: @include hairline('left', #007fff, 5px)
+@mixin hairline($direction, $color: #ddd, $radius: 0) {
+
+  // 四边框
+  @if $direction == 'all' {
+    border: 1px solid $color;
+    border-radius:  $radius;
+
+    html:not([data-scale]) & {
+      @media (min-resolution: 2dppx) {
+        position: relative;
+        border: none;
+        transform: translateZ(0);
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: -1;
+          box-sizing: border-box;
+          width: 200%;
+          height: 200%;
+          border: 1px solid $color;
+          border-radius:  $radius * 2;
+          transform-origin: 0 0;
+          transform: scale(0.5);
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  // 上边框
+  @if $direction == 'top' {
+    border-top: 1PX solid $color;
+
+    html:not([data-scale]) & {
+      @media (min-resolution: 2dppx) {
+        border-top: none;
+
+        &:before {
+          @include scale-hairline-common($color, 0, auto, auto, 0);
+          width: 100%;
+          height: 1PX;
+          transform-origin: 50% 100%;
+          transform: scaleY(0.5);
+
+          @media (min-resolution: 3dppx) {
+            transform: scaleY(0.33);
+          }
+        }
+      }
+    }
+  }
+
+  // 右边框
+  @if $direction == 'right' {
+    border-right: 1PX solid $color;
+
+    html:not([data-scale]) & {
+      @media (min-resolution: 2dppx) {
+        border-right: none;
+
+        &:after {
+          @include scale-hairline-common($color, 0, 0, auto, auto);
+          width: 1PX;
+          height: 100%;
+          transform-origin: 100% 50%;
+          transform: scaleX(0.5);
+
+          @media (min-resolution: 3dppx) {
+            transform: scaleX(0.33);
+          }
+        }
+      }
+    }
+  }
+
+  // 下边框
+  @if $direction == 'bottom' {
+    border-bottom: 1PX solid $color;
+
+    html:not([data-scale]) & {
+      @media (min-resolution: 2dppx) {
+        border-bottom: none;
+
+        &:after {
+          @include scale-hairline-common($color, auto, 0, 0, auto);
+          width: 100%;
+          height: 1PX;
+          transform-origin: 50% 100%;
+          transform: scaleY(0.5);
+
+          @media (min-resolution: 3dppx) {
+            transform: scaleY(0.33);
+          }
+        }
+      }
+    }
+  }
+
+  // 左边框
+  @if $direction == 'left' {
+    border-right: 1PX solid $color;
+
+    html:not([data-scale]) & {
+      @media (min-resolution: 2dppx) {
+        border-right: none;
+
+        &:before {
+          @include scale-hairline-common($color, 0, auto, auto, 0);
+          width: 1PX;
+          height: 100%;
+          transform-origin: 100% 50%;
+          transform: scaleX(0.5);
+
+          @media (min-resolution: 3dppx) {
+            transform: scaleX(0.33);
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+@mixin scale-hairline-common($color, $top, $right, $bottom, $left) {
+  content: '';
+  background-color: $color;
+  display: block;
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  z-index: 1;
+}
+
+
+// 不显示边框
+@mixin hairline-remove($position) {
+  // 四边框
+  @if $position == 'all' {
+    border: 0;
+
+    &:before {
+      display: none !important;
+    }
+  }
+
+  // 上边框
+  @if $position == 'top' {
+    border-top: 0;
+    &:before {
+      display: none !important;
+    }
+  }
+
+  // 右边框
+  @if $position == 'right' {
+    border: 0;
+
+    &:after {
+      display: none !important;
+    }
+  }
+
+  // 下边框
+  @if $position == 'bottom' {
+    border: 0;
+
+    &:after {
+      display: none !important;
+    }
+  }
+
+  // 左边框
+  @if $position == 'left' {
+    border: 0;
+
+    &:before {
+      display: none !important;
+    }
+  }
+
+}

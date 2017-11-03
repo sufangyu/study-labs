@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  background-color: #f5f5f9;
+}
+
+.app {
+  padding: 15px;
+
+  .button {
+    margin: 10px 0;
+  }
+}
+.demo-preview {
+  margin: 25px 0; 
+}
+
+@import '../../style/mixins/hairline.scss';
+$hd            : 1PX;
+$primary-color : #108ee9;
+$radius-md     : $hd * 5;
+
+.button {
+  outline: 0 none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  
+  display: inline-block;
+  padding: 0 15px;
+  text-align: center;
+  font-size: 15px;
+  height: 42px;
+  line-height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  white-space: nowrap;
+  color: $primary-color;
+}
+.button--default {
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid $primary-color;
+}
+
+.button--hairline {
+  background-color: transparent;
+  @include hairline('all', $primary-color, $radius-md);
+}
+
+// 单边边框
+.button--top {
+  position: relative;
+  background-color: transparent;
+  @include hairline('top', $primary-color, $radius-md);
+}
+.button--right {
+  position: relative;
+  background-color: transparent;
+  @include hairline('right', $primary-color, $radius-md);
+}
+.button--bottom {
+  position: relative;
+  background-color: transparent;
+  @include hairline('bottom', $primary-color, $radius-md);
+}
+.button--left {
+  position: relative;
+  background-color: transparent;
+  @include hairline('left', $primary-color, $radius-md);
+}
+
+// 三边边框
+.button--remove {
+  background-color: transparent;
+  @include hairline('all', $primary-color);
+}
+
+.button--remove--top {
+  @include hairline-remove('top');
+}
+
+
+
+
+.divider {
+  margin: 0;
+  height: 1px;
+  border: none;
+  background-color: #ddd;
+  width: 100%;
+
+  html:not([data-scale]) & {
+    @media (min-resolution: 2dppx) {
+      height: 1px;
+      transform-origin: 0 0;
+      transform: scaleY(0.5);
+
+      @media (min-resolution: 3dppx) {
+        transform: scaleY(0.33);
+      }
+    }
+  }
+}
+
+.menu {
+  max-width: 320px;
+}
+.menu__item {
+  font-size: 15px;
+  color: #222;
+  padding: 12px 0;
+}

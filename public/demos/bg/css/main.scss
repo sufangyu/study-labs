@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  // background-color: #f5f5f9;
+}
+
+.app {
+  padding: 15px;
+
+  .button {
+    margin: 10px 0;
+  }
+}
+.demo-preview {
+  margin: 25px 0; 
+}
+
+@import '../../style/mixins/icon.scss';
+@import '../../style/mixins/background.scss';
+
+$hd            : 1PX;
+$primary-color : #007fff;
+$start-color   : #4eb0f6;
+$end-color     : $primary-color;
+$radius-md     : $hd * 5;
+
+.button {
+  outline: 0 none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  
+  display: inline-block;
+  padding: 0 30px;
+  text-align: center;
+  font-size: 15px;
+  height: 42px;
+  line-height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  white-space: nowrap;
+  color: #fff;
+  border-radius: 24px;
+}
+
+.button--to-right {
+  @include background-linear('to right', $start-color, $end-color);
+}
+
+.button--to-left {
+  @include background-linear('to left', $start-color, $end-color);
+}
+
+.button--to-bottom {
+  height: 100px;
+  line-height: 100px;
+  @include background-linear('to bottom', $start-color, $end-color);
+}
+
+.button--to-top {
+  height: 100px;
+  line-height: 100px;
+  @include background-linear('to top', $start-color, $end-color);
+}
+
+
+.icon-right {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  @include encoded-svg-background('right');
+}
+
+.icon-error {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  @include encoded-svg-background('error');
+}
