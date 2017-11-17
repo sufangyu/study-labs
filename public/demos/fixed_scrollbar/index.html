@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端固定滚动条</title>
+  <style>
+    * {
+      margin: 0; padding: 0;
+    }
+
+    .scrollbar {
+      margin: 50px auto;
+      width: 250px;
+      height: 300px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .scrollbar p {
+      margin: 15px 0;
+      font-size: 16px;
+    }
+
+    .scrollbar::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      background-color: transparent;
+    }
+
+    .scrollbar::-webkit-scrollbar-track
+    {
+        /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5; */
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    .scrollbar::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #808080;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="scrollbar">
+    <p>前一段时间，我突然接到运营的同事通报，沪江的一位老师在国外登录不上了沪江帐号。这本来是很普通的故障，但是在排查问题过程并不简单，我们意外获得了不少收获，在这里与大家分享。</p>
+    
+    <p>我们首先判断，从故障现象来看，应该和后端无关，而是与前端有关，所以我们迅速查看了前端的日志，从日志来看，主要是用于判断客户端的地理位置接口持续出现错误，出现大量的HTTP Status Code 406（24小时之内出现了1w多条）。按照HTTP Status Code的规范，4开头的错误码和客户端有关，考虑到这个故障只出现在一位老师那里，初步判断406就是问题的根源。</p>
+    
+    <p>随着掌握信息的增加，分析的加深，我们迅速解决了那位外教的故障，不幸的是，确认它和406没有关系。</p>
+    
+    <p>但是，我们并不能就此打住。毕竟正常情况下响应的HTTP Status Code应该是200，那么大量的406到底是什么呢？为什么我们都无法复现？它们是如何引发的？如此大量的爆发应当引起用户的反馈了？为什么线上的反馈这么平静呢？</p>
+  </div>
+</body>
+</html>
