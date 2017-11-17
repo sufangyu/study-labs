@@ -92,3 +92,15 @@ $radius-md     : $hd * 5;
 
   @include encoded-svg-background('error');
 }
+
+.icon-close {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  @include encoded-svg-background('close');
+}
