@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>分时函数</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var arr = [];
+        for (var i = 0; i < 10000; i++){
+          arr.push({
+            index: i,
+            content: `序号：` + i,
+          });
+        }
+
+        // 一次性添加
+        /* var renderFriendList = function(data){
+          for (var i = 0, l = data.length; i < l; i++){
+            var div = document.createElement('div');
+            div.innerHTML = i;
+            document.body.appendChild( div );
+          }
+        }; 
+
+        renderFriendList(arr);*/
+
+        // 分段添加
+        var renderFriendList = timeChunk(arr, function(obj) {
+          var div = document.createElement('div');
+          div.innerHTML = obj.content;
+          document.body.appendChild(div);
+        }, 1000);
+
+        renderFriendList();
+      });
+
+
+      /**
+       * 分时函数
+       * 
+       * 解决：在短时间内往页面中大量添加DOM节点导致浏览器吃不消问题
+       *
+       * @param {Array} data
+       * @param {Function} fn
+       * @param {Number} count
+       * @returns {*}
+       */
+      function timeChunk(data, fn, count) {
+        var time;
+
+        var start = function() {
+          for (var i = 0; i < Math.min(count || 1, data.length); i++) {
+            var obj = data.shift();
+            fn(obj);
+          }
+        }
+
+        return function() {
+          time = setInterval(function() {
+            if (data.length === 0) {
+              return clearInterval(time);
+            }
+
+            start();
+          }, 200);
+        };
+      }
+    </script>
+  </body>
+</html>
