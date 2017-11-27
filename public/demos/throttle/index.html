@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>函数节流</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+        
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        window.onresize=throttle(resizehandler, 100, 200);
+      });
+
+
+      var n = 0;
+      function resizehandler() {
+        console.log(new Date().getTime());
+        console.log(++n);
+      }
+
+      /* var throttle = function(method, delay, duration) {
+        var timer = null,
+          begin = new Date();
+
+        return function() {
+          var context = this,
+            args = arguments,
+            current = new Date();
+
+          clearTimeout(timer);
+
+          if (current - begin >= duration) {
+            // 大于时间间隔
+            method.apply(context, args);
+            begin = current;
+          } else {
+            timer = setTimeout(function() {
+              method.apply(context, args);
+            }, delay || 500);
+          }
+        };
+      }; */
+
+      var throttle = function(fn, interval) {
+        var firstTime = true,
+          timer;
+
+        return function() {
+          var args = arguments,
+            _me = this;
+
+          // 第一次调用, 不需要延迟执行
+          if (firstTime) {
+            fn.apply(_me, args);
+            return firstTime = false;
+          }
+
+          // 定时器还在, 等待延迟执行
+          if (timer) {
+            return false;
+          }
+
+          // 定时器不在, 延迟执行
+          timer = setTimeout(function() {
+            clearTimeout(timer);
+            timer = null;
+            fn.apply(_me, args);
+          }, interval || 500);
+        }
+      };
+    </script>
+  </body>
+</html>
