@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>open new page - APP</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body, html, #root {
+      height: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container,
+    .page {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .page {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      opacity: 0;
+      z-index: 1;
+      transform: translateX(-100%);
+      background-color: #f8f8f8;
+    }
+    .page.page--show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .page.slideIn {
+      -webkit-animation: a .2s forwards;
+      animation: a .2s forwards
+    }
+
+    .page.slideOut {
+      -webkit-animation: b .2s forwards;
+      animation: b .2s forwards
+    }
+
+    @-webkit-keyframes a {
+      0% {
+        -webkit-transform: translate3d(100%,0,0);
+        transform: translate3d(100%,0,0);
+        opacity: 0
+      }
+
+      to {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1
+      }
+    }
+    @keyframes a {
+      0% {
+        -webkit-transform: translate3d(100%,0,0);
+        transform: translate3d(100%,0,0);
+        opacity: 0
+      }
+
+      to {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1
+      }
+    }
+
+    @-webkit-keyframes b {
+        0% {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            opacity: 1
+        }
+
+        to {
+            -webkit-transform: translate3d(100%,0,0);
+            transform: translate3d(100%,0,0);
+            opacity: 0
+        }
+    }
+    @keyframes b {
+        0% {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            opacity: 1
+        }
+
+        to {
+            -webkit-transform: translate3d(100%,0,0);
+            transform: translate3d(100%,0,0);
+            opacity: 0
+        }
+    }
+
+
+    .page__header {
+      padding: 15px;
+    }
+    .page__body {
+      padding: 0 15px;
+    }
+
+    h1 { font-weight: 400; font-size: 22px; margin-bottom: 20px; }
+    body { font-size: 16px; line-height: 1; }
+    .nav { margin-left: 20px; padding: 15px 0; }
+    .nav li { line-height: 1.5; }
+  </style>
+</head>
+<body>
+<div id="root" class="root">
+  <div class="container" id="container">
+    <div class="page page-home page--show">
+      <div class="page__header"><h1>首页</h1></div>
+      <div class="page__body">
+        <p>WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</p>
+        <ul class="nav">
+          <li><a href="javascript:;" data-id="timeline">最新文章</a></li>
+          <li><a href="javascript:;" data-id="column">专栏</a></li>
+          <li><a href="javascript:;" data-id="explore">发现</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page page-timeline">
+      <div class="page__header"><h1>最新文章</h1></div>
+      <div class="page__body">
+        <p>WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</p>
+      </div>
+    </div>
+
+    <div class="page page-column">
+      <div class="page__header"><h1>专栏</h1></div>
+      <div class="page__body">
+        <p>WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</p>
+      </div>
+    </div>
+
+    <div class="page page-explore">
+      <div class="page__header"><h1>发现</h1></div>
+      <div class="page__body">
+        <p>WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+<!-- <script src="./js/pageManager.js"></script> -->
+<script>
+$(document).ready(function() {
+  $('.nav a').on('click', function() {
+
+    var id = $(this).data('id');
+    pageManager.go(id);
+
+  });  
+});
+
+var pageManager = {
+  go: function(pageId) {
+    var $page = this._find(pageId);
+
+    $page.addClass('slideIn');
+    $page.on('animationend webkitAnimationEnd', function(){
+      $page.removeClass('slideIn').addClass('page--show ');
+    });
+  },
+  _find: function(pageId) {
+    return $('.page-' + pageId);
+  }
+}
+</script>
+</body>
+</html>
