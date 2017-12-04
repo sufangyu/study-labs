@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>URL 方法</title>
+</head>
+<body>
+  
+<script>
+  var urlQuery = (function() {
+    var aLink = window.document.createElement('a');
+
+    function parse(url) {
+      var search = this.getSearch(url);
+      var query = {};
+      var reg = new RegExp("([^?=&]+)(=([^&]*))?", "g");
+
+      if (search) {
+        search.replace(reg, function($0, $1, $2, $3){
+          query[$1] = $3;
+        });
+      }
+
+      return query;
+    }
+
+    function serialize(query) {
+      var tempArr = [];
+      // 循环对象, 向数组中推入字符串 key=value
+      for( var key in query) {
+        tempArr.push(key + '=' + query[key]);
+      }
+
+      // 将数组用&连接成字符串
+      aLink.search = tempArr.join("&");
+      return aLink.href;
+    }
+
+    function get(key, url) {
+      var query = this.parse(url);
+      return query[key];
+    }
+
+    function set(obj, url) {
+      var query = this.parse(url);
+      for(var key in obj) {
+        query[key] = obj[key];
+      }
+      return this.serialize(query);
+    }
+
+    function remove(key, url) {
+      var query = this.parse(url);
+      delete query[key];
+      return this.serialize(query);
+    }
+
+    function getSearch(url) {
+      aLink.href = url || window.location;
+      return aLink.search;
+    }
+
+    return {
+      parse: parse,
+      serialize: serialize,
+      get: get,
+      set: set,
+      remove: remove,
+      getSearch: getSearch,
+    };
+  })();
+
+  var search = 'https://www.baidu.com?uid=585a20941b69e6006cb850a9&suid=3IMzNniemv76RuBBZ7FQ&category=unset&action=like&objectType=entry&value=5a1e561ff265da432e5bc464&src=web#top';
+  var hash = '#top';
+
+  console.log(search + '=>>', urlQuery.parse(search));
+  console.log(hash + '=>>', urlQuery.parse(hash));
+
+  console.log('--- remove ---');
+  console.log(search + '=>>', urlQuery.remove('category', search));
+  console.log(hash + '=>>', urlQuery.remove('category', hash));
+
+  console.log('--- set ---');
+  console.log(search + '=>>', urlQuery.set({'category': '13128', 'src': 'h5'}, search));
+  console.log(hash + '=>>', urlQuery.set({'category': '13128', isBindPhone: false}, hash));
+
+  console.log(urlQuery.get('src'));
+
+
+
+  var url = 'https://www.baidu.com?category=unset&action=like&src=web#top';
+  console.log(urlQuery.set({'src': 'h5', 'isNew': 'true'}, url));  // 输出: "web"
+
+</script>
+</body>
+</html>
