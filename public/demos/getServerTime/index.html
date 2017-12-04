@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>获取服务器时间</title>
+</head>
+<body>
+  <button>获取</button>
+  <div>服务器时间：<span id="time"></span></div>
+
+  <script>
+    var button = document.querySelector('button');
+    var time = document.querySelector('#time');
+
+    button.onclick = function() {
+      var currentDate = getServerTime(function(res) {
+        console.log(res);
+        // console.log(res.getFullYear());
+        // console.log(res.getMonth() + 1);
+        // console.log(res.getDate());
+        // console.log(res.getHours());
+        // console.log(res.getMinutes());
+        // console.log(res.getSeconds());
+
+        time.innerHTML = (res.getFullYear() + '-'+ (res.getMonth() + 1) +'-'+ res.getDate() +' '+ res.getHours() +':'+ res.getMinutes() +':'+ res.getSeconds());
+
+        var timestamp = res.getTime();
+        var min = new Date(2017, 11, 04, 08, 00, 00).getTime();
+        var max = new Date(2017, 11, 04, 09, 00, 00).getTime();
+        console.log(min, max);
+
+        if (timestamp >= min && timestamp <= max) {
+          console.log('在范围内');
+        } else {
+          console.log('不在范围内');
+        }
+        
+      });
+    };
+    
+
+    function getServerTime(callback){
+      var xhr = null;
+      if (window.XMLHttpRequest) {
+        xhr = new window.XMLHttpRequest();
+      } else {
+        xhr = new ActiveObject("Microsoft");
+      }
+
+      xhr.open("get","/");
+      xhr.send(null);
+      
+      xhr.onreadystatechange = function(){
+        var time = null,
+          curDate = null;
+        if (xhr.readyState === 2) {
+          time = xhr.getResponseHeader("Date");
+          curDate = new Date(time);
+          callback && callback(curDate);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
