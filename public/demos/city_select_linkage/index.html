@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>City select linkage</title>
+  <style>
+  select {
+    background-color: #fff;
+    background-position: right center;
+    background-repeat: no-repeat;
+    border: 1px solid #888;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font: 14px/1.8 Arial,sans-serif;
+    height: 30px;
+    padding: 0 8px;
+    vertical-align: middle;
+  }
+  select[disabled] {
+    opacity: 0.5;
+  }
+  </style>  
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./js/jquery.cityselect.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#city_1").citySelect();
+      $("#city_2").citySelect({required: false,});
+      
+      $("#city_3").citySelect({prov:"江苏", city:"南京", required: false,});
+      $("#city_4").citySelect({prov:"江苏", city:"徐州", dist:"云龙区"});
+    });
+  </script>
+</head>
+<body>
+
+  <h3>默认</h3>
+  <div id="city_1">
+    <select class="prov"></select> 
+    <select class="city" disabled="disabled"></select>
+  </div>
+  <div style="height: 15px;"></div>
+  <div id="city_2">
+    <select class="prov"></select> 
+    <select class="city" disabled="disabled"></select>
+    <select class="dist" disabled="disabled"></select>
+  </div>
+  <div style="height: 50px;"></div>
+
+
+
+  <h3>默认值</h3>
+  <div id="city_3">
+    <select class="prov"></select> 
+    <select class="city" disabled="disabled"></select>
+  </div>
+  <div style="height: 15px;"></div>
+  <div id="city_4">
+    <select class="prov"></select> 
+    <select class="city" disabled="disabled"></select>
+    <select class="dist" disabled="disabled"></select>
+  </div>
+  <div style="height: 50px;"></div
+
+
+
+</body>
+</html>
