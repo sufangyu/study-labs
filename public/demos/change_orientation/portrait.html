@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>强制内容横屏</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .print {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      /* visibility: hidden; */
+      text-align: center;
+      overflow: hidden;
+      background: #ffdc00 url(./images/city-bg.png) no-repeat center; 
+      background-size: cover;
+    }
+  </style>
+  <!-- <script src="//wechatfe.github.io/vconsole/lib/vconsole.min.js?v=2.5.2"></script>
+  <script>try { new VConsole(); } catch(err) {}</script> -->
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://common.ofo.so/campaign/20country/lib/zepto.min.js"></script> -->
+  <script src="./js/orientation.js"></script>
+  <script>
+    $(document).ready(function() {
+      var orientationStr = orientationUtil.getOrientation();
+      var orientationName = orientationStr === 'portrait' ? '横屏' : '竖屏';
+      console.log('当前是: ' + orientationName + '('+ orientationStr +')');
+
+      orientationUtil.fixPortrait($('.print'));
+
+
+      $('button').on('tap', function() {
+        alert(111);
+      });
+
+      // 禁止系统菜单
+      window.addEventListener('contextmenu', function(e){  
+        e.preventDefault();  
+      });
+
+      // 禁止系统菜单
+      $('body').on('touchstart touchcancel touchend', function (event) {
+        // 判断默认行为是否可以被禁用
+        if (event.cancelable) {
+          // 判断默认行为是否已经被禁用
+          if (!event.defaultPrevented) {
+            console.log('组织默认行为');
+            event.preventDefault();
+          }
+        }  
+      });
+
+      // 禁止微信中的长按菜单
+      $('button')[0].addEventListener('contextmenu', function(e){
+        e.preventDefault();
+      });
+      
+    });
+  </script>
+</head>
+<body>
+  <div class="print">
+    <p>强制横屏</p>
+    <p>强制横屏</p>
+    <p>强制横屏</p>
+    <button>按钮</button>
+  </div>
+</body>
+</html>
