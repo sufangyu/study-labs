@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Experience</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+    }
+    body {
+      background-color: #f6f7f9;
+    }
+    .header {
+      height: 200px;
+      background-color: #1278E0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header__liquid {
+      position: absolute;
+      bottom: -90px;
+      left: 0;
+      right: 0;
+    }
+    .quick__nav {
+      display: flex;
+      background-color: #fff;
+    }
+    .quick__nav-item {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+    }
+    .quick__nav-item img {
+      display: block;
+      width: 40px;
+      margin: 0 auto;
+    }
+    .quick__nav-item span {
+      display: block;
+      font-size: 14px;
+      color: #333;
+      margin-top: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+      <svg class="header__liquid" id="svg-area" width="500" height="160">
+        <path fill="rgba(255, 255, 255, 1)"></path>
+        <path fill="rgba(255, 255, 255, 0.4)"></path>
+      </svg>
+  </div>
+  <div class="quick__nav">    
+    <div class="quick__nav-item">
+      <img src="https://m.mi.com/views/user/index/img/nav-1_f74ca94.png" />
+      <span>待付款</span>
+    </div>
+    <div class="quick__nav-item">
+      <img src="https://m.mi.com/views/user/index/img/nav-2_a05a641.png" />
+      <span>待收货</span>
+    </div>
+    <div class="quick__nav-item">
+      <img src="https://m.mi.com/views/user/index/img/nav-4_42676a4.png" />
+      <span>退换修</span>
+    </div>
+  </div>
+
+  <script>
+    //波浪动画
+    var svg_height = 160,
+      svg_width = 500,
+      wave_data = [[],[],[]],
+      area = d3.area().y0(svg_height).curve(d3.curveBasis),   //curve会进行平滑处理
+      svg_paths = [];
+    var max = 150;  //控制速度
+    for (var i=0; i<max; i++) {
+      var r = i / max * 2;
+      wave_data[0].push(r + 0); // 波浪一
+      wave_data[1].push(r + 1); // 波浪二（+1代表偏移π）
+      wave_data[2].push(r + 2); // 波浪二（+1代表偏移π）
+    }
+    var d = svg_width/(wave_data[0].length-1);
+    svg_paths.push(d3.select('#svg-area path:first-child'));
+    svg_paths.push(d3.select('#svg-area path:last-child'));
+    function area_generator(data) {
+      var wave_height = 0.15;     //波浪高度
+      var area_data = data.map( function(y,i) {
+        return [i * d, svg_height*(1 - (wave_height*Math.sin(y*Math.PI) + 2)/3)]; //+2将范围[-1,1]转成[1,3]
+      } );
+      return function() {
+        return area(area_data);
+      };
+    }
+    function renderWave() {
+      svg_paths.forEach(function(svg_path,i){
+        svg_path.attr('d', area_generator(wave_data[i]));
+        wave_data[i] = getNextData(wave_data[i]);
+      });
+      requestAnimationFrame(renderWave);
+    }
+    function getNextData(data) {
+      var r = data.slice(1);
+      r.push(data[0]);
+      return r;
+    }
+    requestAnimationFrame(renderWave);
+  </script>
+</body>
+</html>
