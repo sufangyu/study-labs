@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>按钮高亮</title>
+  <style>
+    .button {
+      -webkit-appearance: none;
+	    outline: none;
+      border: none;
+
+      position: relative;
+      font-size: 15px;
+      line-height: 1;
+      color: #fff;
+      background: #ff5400;
+      border-radius: 3px;
+      padding: 10px 25px;
+      overflow: hidden;
+    }
+
+    .button:after {
+      position: absolute;
+      content: "";
+      -webkit-transform: skewX(-20deg);
+      transform: skewX(-20deg);
+      /* background: -webkit-linear-gradient(left,hsla(0,0%,100%,0),hsla(0,0%,100%,.8) 50%,hsla(0,0%,100%,0)); */
+      background-color: transparent;
+      background-image: -webkit-linear-gradient(left top, rgba(255,255,255,0), rgba(255,255,255,0.45));
+      height: 100%;
+      width: 50%;
+      left: -100%;
+      top: 0;
+    }
+
+    .button-hover:hover:after {
+      transition: all .45s linear;
+      left: 120%;
+    }
+
+    .button-auto:after {
+      animation: shining .45s 3s linear infinite;
+      /* animation: shining 2.0s linear infinite; */
+    }
+
+    @keyframes shining {
+      0% {
+        left: -120%;
+      }
+      100% {
+        left: 120%;
+      }
+    }
+
+    /* @keyframes shining {
+      0%, 100% {
+        left: -120%;
+      }
+      50% {
+        left: 120%;
+      }
+      50.1% {
+        left: -120%;
+      }
+    } */
+  </style>
+</head>
+<body>
+  <button class="button button-hover">触发高亮</button>
+  <button class="button button-auto">自动高亮</button>
+</body>
+</html>
