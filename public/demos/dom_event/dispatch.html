@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button>按钮</button>
+
+  <script>
+    var button = document.querySelector('button');
+    button.addEventListener('customEvent', function() {
+      console.log('trigger custom event ~');
+    });
+
+
+    setTimeout(function() {
+      triggerEvent('customEvent', button);
+    }, 2500);
+
+
+    function triggerEvent(type, ele) {
+      if (document.createEvent) {
+        var event = document.createEvent('HTMLEvents'); 
+        event.initEvent(type, false, true);
+        ele.dispatchEvent(event); 
+      } else {
+        var event = document.createEventObject();
+        ele.fireEvent(type, event);
+      }
+    };
+  </script>
+</body>
+</html>
