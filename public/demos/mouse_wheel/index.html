@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mouse wheel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .fixed {
+      position: fixed;
+      width: 100%;
+      background-color: #ccc;
+      text-align: center;
+      font-size: 15px;
+      padding: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="fixed">滚动结果: <span id="result">--</span></div>
+  <div style="height: 3000px"><div>
+
+  <script>
+    function wheels(ev, callback) {
+      var ev = ev || event;
+      var isUp = false;
+
+      if (ev.wheelDelta) {
+        isUp = ev.wheelDelta > 0 ? true : false;
+      } else {
+        isUp = ev.detail < 0 ? true : false;
+      }
+
+      typeof(callback) === 'function' && callback(isUp);
+    }
+
+    var $result = document.getElementById('result');
+
+    document.addEventListener('mousewheel', function(ev) {
+      wheels(ev, function(isUp) {
+        var result = isUp ? '向上' : '向下';
+        $result.innerHTML = result;
+      });
+    }, false);
+
+    document.addEventListener("DOMMouseScroll", function(ev){
+      wheels(ev, function(isUp) {
+        var result = isUp ? '向上' : '向下';
+        $result.innerHTML = result;
+      });
+    },false);
+
+  </script>
+</body>
+</html>
