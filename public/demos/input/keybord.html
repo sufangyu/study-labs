@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>自定义键盘</title>
+</head>
+<body>
+  <p>
+    <input type="text" id="input" />
+  </p>
+
+  <p>
+    <button>前删除</button>
+    <button>后删除</button>
+    <button>后插入</button>
+  </p>
+
+  <script>
+
+    var buttons = document.getElementsByTagName('button');
+    var input = document.getElementById('input');
+
+    console.log(buttons);
+
+    buttons[0].addEventListener('click', function(e) {
+      util.del(input, 1);
+    });
+
+    buttons[1].addEventListener('click', function(e) {
+      util.del(input, -1);
+    });
+
+    buttons[2].addEventListener('click', function(e) {
+      util.add(input, '00');
+    });
+
+
+
+    var util = (function() {
+
+      /**
+       * 获取光标位置
+       * 
+       * @params {any} input
+       */
+      function getCursorPosition(input) {
+        var cursorPos = 0;
+        if (document.selection) {
+          // IE 
+          input.focus ();
+          var selectRange = document.selection.createRange();
+          selectRange.moveStart ('character', -input.value.length);
+          cursorPos = selectRange.text.length;
+        } else if (input.selectionStart || input.selectionStart == '0') {
+          // 非 IE 
+          cursorPos = input.selectionStart;
+        }
+        return cursorPos;
+      }
+
+      /**
+       * 选中指定位置内字符 || 设置光标位置
+       * 从start起选中(含第start个)，到第end结束（不含第end个）
+       * 若不输入end值，即为设置光标的位置（第start字符后）
+       * 
+       * @params {any} input
+       * @params {any} start
+       * @params {any} end
+       */
+      function selectInput(input, start, end) {
+        // end未定义，则为设置光标位置
+        if (arguments[2] == undefined) {
+          end = start;
+        }
+
+        if (document.selection) {
+          // IE
+          var range = input.createTextRange();
+          range.moveEnd('character', -input.value.length);
+          range.moveEnd('character', end);
+          range.moveStart('character', start);
+          range.select();
+        } else {
+          // 非IE
+          input.setSelectionRange(start, end);
+          input.focus();
+        }
+      }
+
+
+      function del(input, length) {
+        var pos = getCursorPosition(input);
+
+        var val = input.value;
+        var result = '';
+
+        // 大于0则删除后面，小于0则删除前面
+        if (length > 0) {
+          result = val.slice(0, pos - length) + val.slice(pos);
+        } else {
+          result = val.slice(0, pos) + val.slice(pos - length);
+        }
+
+        input.value = result;
+        selectInput(input, pos - (length < 0 ? 0 : length));
+      }
+
+
+      function add(input, str) {
+        var val = input.value;
+        var len = val.length;
+  
+        if (document.selection) {
+          // IE
+          input.focus()
+          document.selection.createRange().text = str;
+        } else {
+          // 非IE
+          var selPos = input.selectionStart;
+          var result = input.value.slice(0, input.selectionStart) + str + input.value.slice(input.selectionStart, len)
+
+          input.value = result;
+          selectInput(input, selPos + str.length);
+        };
+      }
+
+      return {
+        del: del,
+        add: add,
+      };
+    })();
+
+  </script>
+</body>
+</html>
