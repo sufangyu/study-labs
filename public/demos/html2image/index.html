@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTML转图片 - 截屏</title>
+</head>
+<body>
+  <canvas id="canvas" width="300" height="200" style="border: 1px solid black;"></canvas>
+  <div id="thehtml" style="display: none;">      
+    <div class="test">Render this</div>
+    <style>
+        .test {
+          font-size: 20px;
+          background-color: yellow;
+        }
+    </style>
+  </div>
+  <a onclick="ss();">截图</a>
+
+  <div id="svg"></div>
+
+
+  <script src="./js/rasterizeHTML.allinone.js"></script>
+  <script>
+    // http://tech.colla.me/en/show/screenshot_feedback_implementation
+
+    function ss(){
+      var canvas = document.getElementById("canvas"),
+        context = canvas.getContext('2d'),
+        html_container = document.getElementById("thehtml"),
+        svg = document.getElementById("svg"),
+        html = html_container.innerHTML;
+
+      // rasterizeHTML.drawHTML(html, canvas);
+
+      /* rasterizeHTML.drawHTML(html).then(function(renderResult) {
+        console.log(renderResult);
+        context.drawImage(renderResult.image, 0, 0);
+        svg.innerHTML = renderResult.svg;
+      }); */
+
+
+      rasterizeHTML.drawURL('./index.html', canvas).then(function(renderResult) {
+        console.log(renderResult);
+        context.drawImage(renderResult.image, 0, 0);
+        svg.innerHTML = renderResult.svg;
+      });
+
+    }
+  </script>
+</body>
+</html>
