@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>City exchange</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      color: #333;
+      position: relative;
+      font-family: -apple-system,PingFang SC,Helvetica,Hiragino Sans GB W3,arial,sans-serif;
+    }
+
+    .app {
+      padding: 15px;
+      line-height: 1;
+    }
+
+    .city {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .city-item {
+      flex: 1;
+      height: 50px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .city-item-input {
+      line-height: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      opacity: 1;
+      transition: opacity .2s ease-out, transform .2s ease-out;
+      -webkit-transition: opacity .2s ease-out, -webkit-transform .2s ease-out;
+    }
+
+    .city-item.to {
+      text-align: right;
+    }
+
+    .city-exchange {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      margin: 0 15px;
+    }
+    .city-exchange svg {
+      width: 1em;
+      height: 1em;
+      fill: #60B2F7;
+      font-size: 30px;
+    }
+
+    .city-exchange .city-icon-plane {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 16px;
+      height: 16px;
+    }
+    .city-exchange .city-icon-plane svg {
+      width: 1em;
+      height: 1em;
+      font-size: 16px;
+    }
+
+    /* 运动 */
+    .city-item.from .exchange {
+      opacity: 0;
+      transform: translateX(100%) translateZ(0);
+      -webkit-transform: translateX(100%) translateZ(0);
+      transition: opacity .2s ease-out,transform .2s ease-out;
+      -webkit-transition: opacity .2s ease-out,-webkit-transform .2s ease-out;
+    }
+    .city-item.to .exchange {
+      opacity: 0;
+      transform: translateX(-100%) translateZ(0);
+      -webkit-transform: translateX(-100%) translateZ(0);
+      transition: opacity .2s ease-out,transform .2s ease-out;
+      -webkit-transition: opacity .2s ease-out,-webkit-transform .2s ease-out;
+    }
+    .rotate .city-icon-circle {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+      -webkit-transition: -webkit-transform .5s;
+      transition: -webkit-transform .5s;
+      transition: transform .5s;
+      transition: transform .5s,-webkit-transform .5s;
+      -webkit-transform-origin: center;
+      transform-origin: center;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <div class="city">
+      <div class="city-item from">
+        <p class="city-item-input">广州</p>
+      </div>
+      <div class="city-exchange">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16" class="city-icon-circle"><path d="M13.578 6.673c0-0.296 0.24-0.536 0.536-0.536l0.755-0.008c-0.793-3.104-3.608-5.399-6.96-5.399-3.372 0-6.198 2.323-6.971 5.455l-0.441-0.589c0.985-3.157 3.931-5.449 7.412-5.449 3.672 0 6.746 2.55 7.554 5.975l0.082 0.396c0.082 0.452 0.127 0.917 0.127 1.392 0 0.273-0.014 0.542-0.042 0.807l-2.053-2.046zM2.282 9.336c0 0.296-0.239 0.536-0.535 0.537l-0.755 0.008c0.797 3.103 3.615 5.394 6.967 5.39 3.372-0.004 6.195-2.331 6.964-5.465l0.442 0.588c-0.981 3.159-3.924 5.454-7.405 5.459-3.672 0.005-6.749-2.541-7.562-5.966l-0.083-0.396c-0.082-0.452-0.128-0.916-0.129-1.392-0-0.273 0.014-0.542 0.041-0.807l2.056 2.044z"></path></svg>
+        <span class="city-icon-plane">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37" height="16" viewBox="0 0 37 16"><path d="M34.345 3.527l-8.042 3.039-10.137-5.429c-1.204-0.544-1.241-0.644-2.088-0.325l-3.608 1.363c-1.119 0.418-0.588 0.805 1.128 2.667l5.078 5.36-12.764 4.822c1.271 0.194 8.993 0.784 10.75 0.121l21.065-7.958c1.011-0.381 1.52-1.51 1.139-2.52s-1.511-1.52-2.521-1.139zM10.231 11.831l-4.288-2.229c-1.27-0.676-1.763-0.674-3.662 0.044l-1.957 0.74 3.704 3.789 6.203-2.343z"></path></svg>
+        </span>
+      </div>
+      <div class="city-item to">
+        <p class="city-item-input">上海</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+
+      $('.city-exchange').on('click', function() {
+        $(this).addClass('rotate');
+        $('.city-item-input').addClass('exchange');
+      });
+
+      $('.city-item-input').on('transitionend WebkitTransitionEnd', function() {
+        $(this).removeClass('exchange');
+        $('.city-exchange').removeClass('rotate');
+
+        var $from = $('.city-item.from').find('.city-item-input');
+        var $to = $('.city-item.to').find('.city-item-input');
+        var fromCity = $from.html();
+        var toCity = $to.html();
+        $from.html(toCity);
+        $to.html(fromCity);
+      });
+
+    });
+  </script>
+</body>
+</html>
