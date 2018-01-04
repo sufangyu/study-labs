@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>online and offline</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .offline-toast {
+      box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: #dc322f;
+      color: #fff;
+      font-size: 16px;
+      height: 56px;
+      line-height: 56px;
+      padding: 0 15px;
+      /* opacity: 1;
+      transform: translateY(0); */
+      
+      opacity: 0;
+      transform: translateY(56px);
+      z-index: 9999;
+    }
+
+    .offline-toast.popup-enter-active,
+    .offline-toast.popup-leave-active {
+        transition: all .5s ease-in-out
+    }
+
+    .offline-toast.popup-enter,
+    .offline-toast.popup-leave-to {
+        opacity: 0;
+        transform: translateY(56px);
+    }
+
+    .offline-toast.popup-leave,
+    .offline-toast.popup-enter-to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .offline-toast-close-btn {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        border-radius: 28px;
+        background: rgba(0,0,0,.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="app"></div>
+
+  <div class="offline-toast" style="display: nonex;">
+    <span>当前处于无网络状态</span>
+    <span class="offline-toast-close-btn">×</span>
+  </div>
+
+
+  <script>
+
+    var online = (function(win) {
+      function _bindEvents(options) {
+        win.addEventListener('online', function() {
+          if (typeof options.onLineCallback === 'function') {
+            options.onLineCallback();
+          }
+        });
+        win.addEventListener('offline', function() {
+          if (typeof options.offLineCallback === 'function') {
+            options.offLineCallback();
+          }
+        });
+      }
+
+      return {
+        init: function(options) {
+          var isOnline = navigator.onLine;
+          if (isOnline) {
+            if (typeof options.onLineCallback === 'function') {
+              options.onLineCallback();
+            }
+          } else {
+            if (typeof options.offLineCallback === 'function') {
+              options.offLineCallback();
+            }
+          }
+          _bindEvents(options);
+        },
+      };
+    })(window);
+
+    
+    
+    var $offlineToast = document.querySelector('.offline-toast');
+    online.init({
+      onLineCallback: function() {
+        console.log('当前在线...');
+        $offlineToast.classList.remove('popup-leave-active');
+        $offlineToast.classList.remove('popup-leave');
+
+        $offlineToast.classList.add('popup-enter-active');
+        $offlineToast.classList.add('popup-enter');
+      },
+      offLineCallback: function() {
+        console.log('当前离线...');
+          $offlineToast.classList.remove('popup-enter-active');
+        $offlineToast.classList.remove('popup-enter');
+
+        $offlineToast.classList.add('popup-leave-active');
+        $offlineToast.classList.add('popup-leave');
+      },
+    });
+
+
+  </script>
+</body>
+</html>
