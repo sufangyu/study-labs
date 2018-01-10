@@ -1,0 +1,111 @@
+.calendar {
+  position: relative;
+  outline: none;
+  width: 280px;
+  border: 1px solid #fff;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  background-clip: padding-box;
+  line-height: 1.5;
+}
+
+.calendar__panel {
+  position: relative;
+}
+
+.calendar__header {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  user-select: none;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.calendar__header a {
+  position: absolute;
+  top: 0;
+  color: rgba(0, 0, 0, 0.45);
+  font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", sans-serif;
+  padding: 0 8px;
+  font-size: 16px;
+  display: inline-block;
+  line-height: 40px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.calendar__btn__month--prev {
+  left: 10px;
+}
+.calendar__btn__month--next {
+  right: 10px;
+}
+
+.calendar__body {
+  padding: 8px 12px;
+}
+.calendar__table {
+  border-collapse: collapse;
+  max-width: 100%;
+  background-color: transparent;
+  width: 100%;
+}
+.calendar__table,
+.calendar__table th,
+.calendar__table td {
+  border: 0;
+  text-align: center;
+}
+.calendar__table th span,
+.calendar__table td span {
+  display: block;
+  /* font-weight: normal; */
+}
+
+.calendar__table th {
+  line-height: 18px;
+  width: 33px;
+  padding: 6px 0;
+  text-align: center;
+}
+
+
+.calendar__cell {
+  padding: 3px 0;
+  height: 30px;
+}
+
+.calendar__date {
+  display: block;
+  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.65);
+  border-radius: 2px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  border: 1px solid transparent;
+  padding: 0;
+  background: transparent;
+  text-align: center;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+.calendar__date:hover {
+  background-color: rgba(24, 144, 255, 0.10);
+  border: 1px solid transparent;
+}
+.calendar__cell--last .calendar__date,
+.calendar__cell--next .calendar__date {
+  color: rgba(0, 0, 0, 0.25);
+}
+.calendar__cell--current .calendar__date {
+  color: #fff;
+  background-color: rgba(24, 144, 255, 1);
+}
+
+.calendar__footer {
+  display: none;
+}

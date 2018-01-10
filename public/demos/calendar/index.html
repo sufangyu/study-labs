@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="./css/calendar.css">
+</head>
+
+<body>
+  
+  <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+  <script src="./js/moment.min.js"></script>
+  <script src="./js/calendar.js"></script>
+  <script>
+    var calendar = new Calendar({
+      defaultValue: '2017-12-26',
+      selectCallback: function(date) {
+        console.log('选择了 =>>', date);
+        console.log('格式化 =>>', moment(date).format('DD/MM/YYYY'));
+      },
+    });
+
+    console.log(calendar);
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calendar</title>
+  <link rel="stylesheet" href="./css/calendar.css">
+</head>
+
+<body>
+  <div class="calendar">
+    <div class="calendar__panel">
+      <div class="calendar__panel--date">
+        <div class="calendar__header">
+          <a class="calendar__btn__month calendar__btn__month--prev" title="Previous month">&lt;</a>
+          <span class="calendar__select">2018-01</span>
+          <a class="calendar__btn__month calendar__btn__month--next" title="Next month">&gt;</a>
+        </div>
+        <div class="calendar__body">
+          <table class="calendar__table" cellspacing="0">
+            <thead class="calendar__thead">
+              <tr role="row">
+                <th title="星期日">
+                  <span>日</span>
+                </th>
+                <th title="星期一">
+                  <span>一</span>
+                </th>
+                <th title="星期二">
+                  <span>二</span>
+                </th>
+                <th title="星期三">
+                  <span>三</span>
+                </th>
+                <th title="星期四">
+                  <span>四</span>
+                </th>
+                <th title="星期五">
+                  <span>五</span>
+                </th>
+                <th title="星期六">
+                  <span>六</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="calendar__tbody">
+              <tr role="row" class="">
+                <td class="calendar__cell calendar__cell--last">
+                  <div class="calendar__date">31</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">1</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">2</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">3</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">4</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">5</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">6</div>
+                </td>
+              </tr>
+              <tr role="row" class="calendar__week--active">
+                <td class="calendar__cell">
+                  <div class="calendar__date">7</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">8</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date calendar__date--current">9</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">10</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">11</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">12</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">13</div>
+                </td>
+              </tr>
+              <tr role="row" class="">
+                <td class="calendar__cell">
+                  <div class="calendar__date">14</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">15</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">16</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">17</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">18</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">19</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">20</div>
+                </td>
+              </tr>
+              <tr role="row" class="">
+                <td class="calendar__cell">
+                  <div class="calendar__date">21</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">22</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">23</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">24</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">25</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">26</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">27</div>
+                </td>
+              </tr>
+              <tr role="row" class="">
+                <td class="calendar__cell">
+                  <div class="calendar__date">28</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">29</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">30</div>
+                </td>
+                <td class="calendar__cell">
+                  <div class="calendar__date">31</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">1</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">2</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">3</div>
+                </td>
+              </tr>
+              <tr role="row" class="">
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">4</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">5</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">6</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">7</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">8</div>
+                </td>
+                <td class="calendar__cell calendar__cell--next">
+                  <div class="calendar__date">9</div>
+                </td>
+                <td class="calendar__cell calendar__cell--last">
+                  <div class="calendar__date">10</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="calendar__footer">
+          <span class="calendar-footer-btn">
+            <a class="calendar-today-btn " role="button" title="January 9, 2018">Today</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
