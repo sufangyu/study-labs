@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Animate Shake 摆钟效果</title>
+  <style>
+    * { margin: 0; padding: 0; }
+
+    .shake-wrapper {
+      z-index: 100;
+      position: fixed;
+      width: 600px;
+      height: 0;
+      top: -20px;
+      left: 50%;
+      margin-left: -300px;
+    }
+
+    .shake {
+      width: 240px;
+      height: 0;
+      position: absolute;
+      top: 0;
+      left: 180px;
+      z-index: 20;
+
+      animation-name: shake;
+      animation-duration: 2.5s;
+      animation-iteration-count: infinite;
+      animation-timing-function: cubic-bezier(.6,0,.3,1);
+      animation-direction: alternate; /* 是否应该轮流反向播放动画 */
+      transform-origin: top center;
+
+      transform: rotate(30deg);
+    }
+
+    .shake .rope {
+      position: absolute;
+      width: 2px;
+      height: 498px;
+      left: 150px;
+      top: -10px;
+      background-color: #fabc4e;
+      box-shadow: rgba(0,0,0,.07) 8px 0 10px;
+    }
+    .shake .heart-wrap {
+      position: absolute;
+      top: 400px;
+      width: 300px;
+      height: 220px;
+    }
+    
+    @keyframes shake {
+      from {
+        transform: rotate(30deg);
+      }
+      to {
+        transform: rotate(-30deg);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="shake-wrapper">
+    <div class="shake">
+      <!-- 绳子 -->
+      <div class="rope"></div>
+
+      <!--  -->
+      <a href="javascript:;" class="heart-wrap">
+        <img src="./images/heart.png" class="heart" alt="" />
+      </a>
+    </div>
+  </div>
+</body>
+</html>

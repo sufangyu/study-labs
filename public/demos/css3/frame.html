@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS3 逐帧动画</title>
+  <style>
+    .frame {
+      width: 200px;
+      height: 300px;
+
+      background-image: url(./images/timg.jpg);
+      animation: move 1s steps(1, end) infinite;
+      animation-play-state: running;
+    }
+
+    .frame:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes move {
+        0.00% { background-position: 0 0; }
+       14.28% { background-position: -200px 0; }
+       28.57% { background-position: -400px 0; }
+       42.85% { background-position: -800px 0; }
+       57.14% { background-position: -1000px 0; }
+       71.42% { background-position: -1200px 0; }
+       85.71% { background-position: -1400px 0; }
+    }
+
+
+
+    /* image num sass 
+     *    
+    .animation {
+      animation: ani 2s infinite steps(1);
+    }
+    $img_total: 20;  //图片的总数
+    $img_n: 1;       //图片变量名
+    $n: 0;           //当前阶段，帧动画
+    @-webkit-keyframes ani {
+      @while $n <= 100 {
+        #{$n}% {
+          background-image: url("http://7xqrwh.com1.z0.glb.clouddn.com/image/frameAni/#{$img_n}.png");
+        }
+        $img_n: $img_n + 1;
+        @if ($img_n>$img_total) {
+          $img_n: 1;
+        }
+        $n: $n + ( 100 / $img_total );
+      }
+    }
+     */
+
+    /* position sass 
+     *
+    .animation {
+      animation: ani 2s infinite steps(1);
+    }
+    
+    $img_width: 200; // 图片的宽度
+    $img_total: 7;  // 图片的总数
+    $img_n: 1;      // 图片变量名
+    $n: 0;          // 当前阶段，帧动画
+    
+    @-webkit-keyframes ani {
+      @while $n <= 100 {
+        #{$n}% {
+          background-position: -#{$img_n * $img_width}px 0;
+        }
+        
+        $img_n: $img_n + 1;
+        @if ($img_n>$img_total) {
+          $img_n: 1;
+        }
+        $n: $n + ( 100 / $img_total );
+      }
+    }
+     */
+
+  </style>
+</head>
+<body>
+  <div class="frame">
+
+  </div>
+</body>
+</html>
