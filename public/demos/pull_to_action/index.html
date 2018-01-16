@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pull to action</title>
+  <style lang="">
+    * { margin: 0; padding: 0; }
+    html, body {
+      font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial;
+    }
+    body {
+      background-color: #f5f5f9;
+      font-size: 14px;
+    }
+
+    .app {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+
+    /* .pull__indicator {
+      pointer-events: none;
+      font-size: 0.85em;
+      font-weight: bold;
+      top: 0;
+      height: 0;
+      transition: height 0.3s, min-height 0.3s;
+      -webkit-transition: height 0.3s, min-height 0.3s;
+      text-align: center;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      align-content: stretch;
+    }
+    .pull__indicator--pull {
+      transition: none;
+    }
+    .pull__indicator__box {
+      padding: 10px;
+      flex-basis: 100%;
+    }
+    .pull__indicator__text {
+      margin-top: .33em;
+      color: rgba(0, 0, 0, 0.3);
+      line-height: 1;
+    }
+
+    .pull__indicator__icon {
+      color: rgba(0, 0, 0, 0.3);
+      transition: transform .3s;
+      -webkit-transition: transform .3s;
+    } */
+
+  </style>
+</head>
+<body>
+
+  <!-- 下拉指示器 -->
+  <!-- <div class="pull__indicator">
+    <div class="pull__indicator__box">
+      <div class="pull__indicator__content">
+        <div class="pull__indicator__icon">⇣</div>
+        <div class="pull__indicator__text">Pull down to refresh</div>
+      </div>
+    </div>  
+  </div> -->
+
+  <div class="app">
+    <div class="swiper">
+      <img style="width: 100%;" src="./images/pull-to-refress.png" alt="" />
+    </div>
+    
+    <div class="list">
+      <div style="text-align: center; padding: 20px;">pull down 0</div>
+      <div style="text-align: center; padding: 20px;">pull down 1</div>
+      <div style="text-align: center; padding: 20px;">pull down 2</div>
+      <div style="text-align: center; padding: 20px;">pull down 3</div>
+      <div style="text-align: center; padding: 20px;">pull down 4</div>
+      <div style="text-align: center; padding: 20px;">pull down 5</div>
+      <div style="text-align: center; padding: 20px;">pull down 6</div>
+      <div style="text-align: center; padding: 20px;">pull down 7</div>
+      <div style="text-align: center; padding: 20px;">pull down 8</div>
+      <div style="text-align: center; padding: 20px;">pull down 9</div>
+      <div style="text-align: center; padding: 20px;">pull down 10</div>
+    </div>
+  </div>
+
+<script src="./js/pulltoaction.js"></script>
+<script>
+  // console.log(PullToAction);
+  new PullToAction({
+    onRefresh: function() {
+      console.log('refresh');
+    },
+  });
+</script>
+</body>
+</html>
