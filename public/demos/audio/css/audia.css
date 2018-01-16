@@ -1,0 +1,90 @@
+.audio {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding: 15px; }
+  .audio__controls {
+    display: flex;
+    margin-bottom: 25px; }
+    .audio__controls a {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      cursor: pointer;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #f30;
+      padding: 10px 0;
+      opacity: 0.8;
+      transition: opacity 0.25s ease; }
+      .audio__controls a:hover {
+        opacity: 1; }
+      .audio__controls a[data-action="prev"], .audio__controls a[data-action="next"] {
+        opacity: 0.5; }
+        .audio__controls a[data-action="prev"]:hover, .audio__controls a[data-action="next"]:hover {
+          opacity: 0.8; }
+  .audio .icon__controls {
+    fill: currentColor;
+    background-size: cover;
+    display: block;
+    width: 36px;
+    height: 36px; }
+  .audio__progress {
+    position: relative;
+    margin: 15px 0; }
+    .audio__progress .progress {
+      display: flex;
+      height: 4px;
+      overflow: hidden;
+      background-color: #e9ecef;
+      border-radius: 3px; }
+      .audio__progress .progress--load {
+        background-image: linear-gradient(45deg, rgba(0, 123, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(0, 123, 255, 0.15) 50%, rgba(0, 123, 255, 0.15) 75%, transparent 75%, transparent);
+        background-size: 14px 14px;
+        animation: progress-bar-stripes 1s linear infinite; }
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 14px 0; }
+  to {
+    background-position: 0 0; } }
+      .audio__progress .progress__bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+        background-color: #007bff; }
+      .audio__progress .progress__handle {
+        z-index: 2;
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background-color: transparent;
+        top: 50%;
+        margin-top: -11px;
+        margin-left: -11px;
+        cursor: pointer;
+        outline: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        transition: background-color 0.25s ease; }
+        .audio__progress .progress__handle:hover, .audio__progress .progress__handle.active {
+          background-color: rgba(0, 123, 255, 0.15); }
+        .audio__progress .progress__handle:after {
+          content: " ";
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: #007bff;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin-top: -6px;
+          margin-left: -6px; }
+  .audio .audio__info {
+    display: flex;
+    justify-content: space-between;
+    color: #b2b2b2;
+    overflow: hidden;
+    padding-top: 16px;
+    font-size: 14px; }
+
+/*# sourceMappingURL=audia.css.map */

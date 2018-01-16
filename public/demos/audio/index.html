@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>音频播放器</title>
+  <link rel="stylesheet" href="./css/audia.css">
+  <script src="//at.alicdn.com/t/font_521913_b07qc546ceyojemi.js"></script>
+  <script src="//cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+  <script src="./js/audio.js"></script>
+  <script nonce="">document.addEventListener("touchstart", function() {},false);</script>
+  <script>
+    /* $(document).ready(function() {
+      $('.js-audio').audio({
+        src: 'http://fs.w.kugou.com/201712270905/d3025188dc95806d8697d51aee4529a6/G118/M05/1F/18/FocBAFogJfOAdpVyACx0gPHxI0U716.mp3',
+        onPlay: function($button) {          
+          $button.html('<svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-pause"></use></svg>');
+        },
+        onStop: function($button) {
+          console.log('播放结束...');
+          $button.html('<svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use></svg>');
+        },
+        onPause: function($button) {
+          $button.html('<svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use></svg>');
+        },
+        onProgress: function(percent) {
+          console.log('onProgress callback =>>', percent);
+        },
+      });
+    }); */
+  </script>
+</head>
+<body>
+
+  <div
+    class="audio js-audio"
+    data-audio="audio"
+    data-src="http://fs.w.kugou.com/201712270905/d3025188dc95806d8697d51aee4529a6/G118/M05/1F/18/FocBAFogJfOAdpVyACx0gPHxI0U716.mp3"
+    style="max-width: 600px; margin: 0 auto;"
+  >
+    <!-- <audio src="http://fs.w.kugou.com/201712270905/d3025188dc95806d8697d51aee4529a6/G118/M05/1F/18/FocBAFogJfOAdpVyACx0gPHxI0U716.mp3"></audio> -->
+
+    <!-- <div class="audio__controls">
+      <a class=" js-controls-button" data-action="prev" title="prev" title="上一首">
+        <svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-prev"></use></svg>
+      </a>
+      <a class="js-controls-button" data-action="play" title="play" title="播放">
+        <svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use></svg>
+      </a>
+      <a class="js-controls-button" data-action="next" title="next" title="下一首">
+        <svg class="icon__controls"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-next"></use></svg>
+      </a>
+    </div>
+
+    <div class="audio__progress">
+      <div class="progress progress--loadx">
+        <div class="progress__bar" style="width: 75%"></div>
+        <span class="progress__handle" style="left: 75%"></span>
+      </div>
+    </div>
+
+    <div class="audio__info">
+      <div class="audio__time--current">00:00</div>
+      <div class="audio__time--total">00:00</div>
+    </div> -->
+    
+  </div>
+
+  <br />
+  <br />
+  <br />
+  <br />
+
+</body>
+</html>
