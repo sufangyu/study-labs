@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>paint</title>
+  <style>
+    .canvas {
+      background-color: #f7f7f7;
+      display: block;
+      max-width: 100%;
+      cursor:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAARpJREFUOBGdkr1KA0EUhTcxEkSQQIpAihQWPoedD2BnIVsZQiBVEkiR7SwtBDsJqXwBLQwEgoWNjY2FjYUQ38Ei5Oc7sBeGLTKze+Djzsyecxh2N4ryq0zkHpYQQ2H1SW5TNsxukaZzQsewACvTvIBg3eFUaABHMEv3OruBIN3icm8wZl+FZ3iBQ/AqweGW2FrlKlChV0McFsxOvaegm/T2lLzzTC/dqzaO7A1s/8GzE28Dhhj0f1jQnZ+c18CrKxxrcMO2/uK87m3AcAkrsKA7vzlvQJAmuNywrX84bwY1YBrBATyCFWj+QguCJKNCU1DZQ7r/Y55CsK5x2i2eWFcggTPIJd3Eiv5Zd3KlU3OJOQd9lVd4A5Xl1g4YG2GGhwRfegAAAABJRU5ErkJggg==) 0 17,default;cursor:-webkit-image-set(url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAARpJREFUOBGdkr1KA0EUhTcxEkSQQIpAihQWPoedD2BnIVsZQiBVEkiR7SwtBDsJqXwBLQwEgoWNjY2FjYUQ38Ei5Oc7sBeGLTKze+Djzsyecxh2N4ryq0zkHpYQQ2H1SW5TNsxukaZzQsewACvTvIBg3eFUaABHMEv3OruBIN3icm8wZl+FZ3iBQ/AqweGW2FrlKlChV0McFsxOvaegm/T2lLzzTC/dqzaO7A1s/8GzE28Dhhj0f1jQnZ+c18CrKxxrcMO2/uK87m3AcAkrsKA7vzlvQJAmuNywrX84bwY1YBrBATyCFWj+QguCJKNCU1DZQ7r/Y55CsK5x2i2eWFcggTPIJd3Eiv5Zd3KlU3OJOQd9lVd4A5Xl1g4YG2GGhwRfegAAAABJRU5ErkJggg==) 1x,url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAABGdBTUEAALGPC/xhBQAAAn9JREFUWAnFlz1IV2EUxs2+ixCCrCCrIaiGGnLIRdBacqkhtCEbqqVaoqmacpIma6rFHHITh1pKMKFaInATkb4hKChKIwj7rt8D74XDy3tfKM69Hng4zz3nvc9zfH3/93//DQ31xWqsBsEnMAU6wILFSpwnwB+Db/BDoPZYjuMYsMMU/Af1nron2o7hh5KBNNhP0AtqjV24vQPFzsT5F70jVU7UiPhNcNyY7IC/AfEwxfUsvcVmvRtdhNIQkNFvcAoUsQ3yGhRDxLmpWOiZryUMzxqDrfCXiTXjZo0bvZIwKnbhvHHZBH9q1s7Am03fhV42BsUQcb5knDbAp8EzsNHUXWgfKrF52XW/cVwH1265xgXUyszL6gOuExixc/8xjIZ8C9YbHRd6GpWyHcjV33PfTpcJjMgJuJ4xOeNU7yP37DY6LvQoKnrUpwxzNb12tLpMYES64foyzBmnep+5p83ouNCDqHwHKcNc7Qv3tLtMYEQOwPVClTNO9ea5Z7/RcaH7UJFwyjBX0x/Q5TKBEdFWa8tzxqme3gTdX0/3IqrDmDLM1XTodfhdYw9qcyBnnOrpcdDrOglienDpAZYyzNX0oDwJ3GMUxZxxWe+M+yRBcBX53j8OpS9Z9ziM4tKguoJ8B5Tthq1fDPe4p+co3gbLgrLyLWDNY94X1rqnFmN8F64dUiwBIyAeRNd6Za0sjqFsTXWGdJYU+q00DGz/qhpVxg3EraH4Q7AmmDaSB4Hq10Ot0vQimMVDPaLeFJz1A1DvQsqVxmbU40Hs9ST9tZVOYMT1r+gw1zF9ReEx2BI3qrrWp6jTiH+FPwD6pI2BJ6DW0HkYBzNAQ9wH82DB4i/kUnkzGX+skQAAAABJRU5ErkJggg==) 2x) 0 17,default
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas__paint" class="canvas" width="300" height="240"></canvas>
+
+  <div class="canvas__paint__actions">
+    <button id="clear">重画</button>
+    <button id="save">保存</button>
+  </div>
+
+  <div id="img__paint" width="300" height="240"></div>
+
+  <script>
+    (function(doc, win) {
+      
+      var canvas = document.querySelector('#canvas__paint');
+      var saveImg = document.querySelector('#img__paint');
+      var clearButton = document.querySelector('#clear');
+      var saveButton = document.querySelector('#save');
+
+      var lineWidth = 2;
+      var lineColor = '#f30';
+
+      // 不兼容 canvas
+      if (!canvas || !canvas.getContext) {
+        return;
+      }
+
+      // 代码主体
+      var isAllowDrawLine = false;
+      var context = canvas.getContext('2d');
+
+      clearButton.onclick = function () {
+        console.log('清空画布');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.width = canvas.width;
+      };
+
+      saveButton.onclick = function () {
+        console.log('保存画布');
+        var base64 = canvas.toDataURL('image/png', '1');
+
+        var image = new Image();
+        image.style.width = canvas.width + 'px';
+        image.style.height = canvas.height + 'px';
+        image.src = base64;
+
+        saveImg.innerHTML = '';
+        saveImg.appendChild(image);
+      };
+
+
+      canvas.onmousedown = down;
+      canvas.onmousemove = move;
+      canvas.onmouseup = up;
+      canvas.ontouchstart = down;
+      canvas.ontouchmove = move;
+      canvas.ontouchend = up;
+
+
+      function down (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        e = e.changedTouches ? e.changedTouches[0] : e;
+
+        isAllowDrawLine = true;
+        context.lineWidth = lineWidth;
+        context.strokeStyle = lineColor;
+        var position = windowToCanvas(canvas, e.clientX, e.clientY);
+        
+        // 绘制起点
+        context.moveTo(position.x, position.y);
+      }
+
+      function move (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        e = e.changedTouches ? e.changedTouches[0] : e;
+
+        if (!isAllowDrawLine) {
+          return;
+        }
+
+        // 移动时获取新的坐标位置，用lineTo记录当前的坐标，然后stroke绘制上一个点到当前点的路径
+        let movePosition = windowToCanvas(canvas, e.clientX, e.clientY)
+        context.lineTo(movePosition.x, movePosition.y);
+        context.stroke();
+      }
+
+      function up () {
+        isAllowDrawLine = false;
+      }
+
+
+
+
+      
+      /**
+       * 获取鼠标相对 canvas 画布的坐标
+       */
+      function windowToCanvas(canvas, x, y) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: x - rect.left * (canvas.width/rect.width), // canvas.width / rect.width 表示判断 canvas 中存在的缩放行为，求出缩放的倍数
+          y: y - rect.top * (canvas.height/rect.height),
+        }
+    }
+
+    })(document, window);
+  </script>
+</body>
+</html>
