@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Image View</title>
+  <style>
+    figure {
+      text-align: center;
+    }
+    figure img {
+      max-width: 100%;
+    }
+
+    .image-view {
+      visibility: hidden;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 101;
+      overflow: hidden;
+      transition: background-color .2s ease-in-out, opacity .2s ease-in-out;
+      background-color: rgba(26,26,26,.65);
+    }
+    .image-view__inner {
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .image-view__img {
+      cursor: zoom-out;
+      transition: -webkit-transform .3s ease-in-out;
+      transition: transform .3s ease-in-out;
+      /* transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out; */
+
+      /* width: 382px;
+      transform: translate3d(16px, 201.141px, 0px) scale3d(1.08377, 1.08377, 1);
+      opacity: 1; */
+    }
+  </style>
+</head>
+
+<body>
+  
+  <figure>    
+    <img class="lightbox" src="https://user-gold-cdn.xitu.io/2018/2/7/1616fa4eec27d8f0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" />
+  </figure>
+
+
+
+  <div class="image-view">
+    <div class="image-view__inner">
+      <img src="" class="image-view__img" alt="preview" />
+    </div>
+  </div>
+
+
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      var lightbox = document.querySelector('.lightbox');
+      var imageView = document.querySelector('.image-view');
+      var imageViewImg = document.querySelector('.image-view__img');
+
+      var imageViewImgCurrent = null;
+      var isOpen = false;
+
+      lightbox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        imageViewImgCurrent = this;
+        var rect = imageViewImgCurrent.getBoundingClientRect();
+
+        imageView.style.opacity = 1;
+        imageView.style.visibility = 'visible';
+
+        imageViewImg.src = this.src;
+        imageViewImg.style.width = rect.width + 'px';
+        imageViewImg.style.opacity = 1;
+        imageViewImg.style.transform = 'translate3d('+ rect.x +'px, '+ rect.y +'px, 0px)';
+
+        var scaleX = (window.innerWidth - 10) / rect.width;
+        var endY = (window.screen.height - rect.height) / 2;
+
+
+        setTimeout(function() {
+          imageViewImg.style.transform = 'translate3d('+ rect.x +'px, '+ endY +'px, 0px) scale3d('+ scaleX +', '+ scaleX +', 1)';
+          imageViewImg.style.transform = '-webkit-translate3d('+ rect.x +'px, '+ endY +'px, 0px) scale3d('+ scaleX +', '+ scaleX +', 1)';
+        }, 0);
+      });
+
+      imageViewImg.addEventListener('transitionend', function(e) {
+        e.stopPropagation();
+
+        if (!isOpen) {
+          isOpen = true;
+          return;
+        }
+
+        isOpen = false;
+        imageView.style.opacity = 0;
+        imageView.style.visibility = 'hidden';
+      });
+
+
+      imageView.addEventListener('click', function(e) {
+        e.stopPropagation();
+
+        // 判断是否是打开状态. 不是则不执行一下还原代码
+        if (!isOpen) {
+          return;
+        }
+     
+        var rect = imageViewImgCurrent.getBoundingClientRect();
+        imageViewImg.style.transform = 'translate3d('+ rect.x +'px, '+ rect.y +'px, 0px)';
+        imageViewImg.style.transform = '-webkit-translate3d('+ rect.x +'px, '+ rect.y +'px, 0px)';
+      });
+
+    });
+  
+  </script>
+</body>
+</html>
