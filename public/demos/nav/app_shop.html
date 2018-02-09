@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>App Botton Nav</title>
+  <style>
+    /* * {
+      margin: 0;
+      padding: 0;
+    } */
+    body {
+      background-color: #f0f0f0;
+    }
+    .muicell {
+      display: flex;
+      max-width: 100%;
+      flex: 1;
+    }
+    .muicell.center {
+      justify-content: center;
+      align-items: center;
+    }
+    .btm-menu {
+      position: fixed;
+      bottom: 0;
+      height: 48px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      z-index: 10000;
+      border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .btm-menu a {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      text-decoration: none;
+      outline: 0 none;
+      background-color: transparent;
+      color: #000;
+    }
+    .btm-menu-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      height: 100%;
+      overflow: visible;
+    }
+    .btm-menu-list > li {
+      position: relative;
+      background-color: #fff;
+    }
+    .btm-menu-list > li::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,.05);
+    }
+    .btm-menu-list > li:last-child::after {
+      display: none;
+    }
+    .btm-menu-list > li > a {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sub-btm-menu-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: block;
+      max-height: 0;
+      /* max-width: 100%; */
+      width: 100%;
+      position: absolute;
+      bottom: 58px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      -webkit-transition: max-height .3s ease-out;
+      transition: max-height .3s ease-out;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .more-sub-menu-items:before {
+      content: '\20';
+      display: block;
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      border-top: 1px solid rgba(0,0,0,.15);
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      padding-top: 3px;
+      width: 12px;
+      -webkit-transform: translate3d(-50%,-50%,0);
+      transform: translate3d(-50%,-50%,0);
+    }
+    .sub-btm-menu-list::after {
+      content: '\20';
+      height: 8px;
+      width: 8px;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3MTk5OTBEMTQ0QkYxMUU1ODBGQzk1QzZGRjg5OENBMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3MTk5OTBEMjQ0QkYxMUU1ODBGQzk1QzZGRjg5OENBMyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcxOTk5MENGNDRCRjExRTU4MEZDOTVDNkZGODk4Q0EzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjcxOTk5MEQwNDRCRjExRTU4MEZDOTVDNkZGODk4Q0EzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+erDTJAAAAH9JREFUeNpifPDgQfDPnz/X/Pjxg4EUwMHBAcJhjDdv3vzPycnJICoqSpIBr1+/Zvj+/TsDw8WLF/8DGf9JBSA9IL1MDBSCUQOoYQAoSih1wT9qGPCf0jCg2ABGcg1gAeaov8CMwUpOZgLlSMY3b960vX37tpKc7MzLy5sOEGAAjI5rHnBLhZ8AAAAASUVORK5CYII=) no-repeat;
+      position: absolute;
+      bottom: -4px;
+      left: 45%;
+      opacity: 0;
+      -webkit-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+      -webkit-transition: all .5s;
+      transition: all .5s;
+    }
+    .sub-btm-menu-list .sub-menu-item {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      color: #999;
+      padding: 10px 18px;
+      border: 1px solid rgba(0,0,0,.1);
+      border-top: none;
+      text-align: center;
+      background-color: #fff;
+    }
+    .more-sub-menu-items.show-sub-menu .sub-btm-menu-list {
+      display: block;
+      max-height: 400px;
+      overflow: visible;
+      -webkit-transition: max-height .3s ease-in .1s;
+      transition: max-height .3s ease-in .1s;
+      border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .more-sub-menu-items.show-sub-menu .sub-btm-menu-list:after {
+      opacity: 1;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="root">
+
+    <div class="btm-menu">
+      <ul class="btm-menu-list muicell">
+        <li class="muicell center">
+          <a href="#" class="menu-list-item">宝贝分类</a>
+        </li>
+        <li class="more-sub-menu-items muicell center">
+          <a href="#" class="menu-list-item">主题推荐</a>
+          <ul class="sub-btm-menu-list">
+            <li class="sub-menu-item"><a href="javascript:;">UniqloU18春夏</a></li>
+            <li class="sub-menu-item"><a href="javascript:;">UniqloU18秋冬</a></li>
+            <li class="sub-menu-item"><a href="javascript:;">UniqloU18春夏</a></li>
+            <li class="sub-menu-item"><a href="javascript:;">UniqloU18秋冬</a></li>
+          </ul>
+        </li>
+        <li class="more-sub-menu-items muicell center">
+          <a href="#" class="menu-list-item">联系卖家</a>
+          <ul class="sub-btm-menu-list">
+            <li class="sub-menu-item"><a href="javascript:;">联系旺旺客服</a></li>
+            <li class="sub-menu-item"><a href="javascript:;">拨打客服热线</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+
+    var menulist = document.querySelector('.btm-menu-list');
+    var menulistItem = menulist.querySelectorAll('.menu-list-item');
+    
+    menulist.addEventListener('click', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var target = e.target;
+
+      if (target.classList.contains('menu-list-item')) {
+        // 点击的是子菜单
+
+        for(var i = 0; i < menulistItem.length; i++) {
+          var listItem = menulistItem[i];
+
+          if (listItem === target) {
+            // 当前点击的子菜单
+            if (listItem.parentNode.classList.contains('show-sub-menu')) {
+              listItem.parentNode.classList.remove('show-sub-menu');
+            } else {
+              listItem.parentNode.classList.add('show-sub-menu');
+            }
+          } else {
+            // 非当前点击的子菜单
+            listItem.parentNode.classList.remove('show-sub-menu');
+          }
+        }
+      }
+    });
+    
+  </script>
+</body>
+</html>
