@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SKeleton</title>
+  <style>
+    .skeleton {
+      padding: 10px;
+    }
+    .skeleton .skeleton-head,
+    .skeleton .skeleton-title,
+    .skeleton .skeleton-content {
+      background: rgb(194, 207, 214);
+    }
+    .skeleton-head {
+      width: 70px;
+      height: 70px;
+      float: left;
+    }
+    .skeleton-body {
+      margin-left: 90px;
+    }
+    .skeleton-title {
+      width: 500px;
+      height: 35px;
+    }
+
+    .skeleton-content {
+      width: 260px;
+      height: 20px;
+      margin-top: 15px;
+    }
+
+    .skeleton-shining .skeleton-head,
+    .skeleton-shining .skeleton-title,
+    .skeleton-shining .skeleton-content {
+      background: rgb(194, 207, 214);
+      background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.15) 25%, transparent 25%);
+      background-size: 20rem 20rem;
+      animation: skeleton-stripes 1s linear infinite;
+    }
+    @keyframes skeleton-stripes {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 20rem 0;
+      }
+    }
+
+
+    .skeleton-move .skeleton-title {
+      transform-origin: left;
+      animation: skeleton-stretch .5s linear infinite alternate;
+    }
+    .skeleton-move .skeleton-content {
+      transform-origin: left;
+      animation: skeleton-stretch .5s -.3s linear infinite alternate;
+    }
+    @keyframes skeleton-stretch {
+      from {
+        transform: scalex(1);
+      }
+      to {
+        transform: scalex(.3);
+      }
+    }
+    
+
+  </style>
+</head>
+<body>
+  <div class="root">
+
+    <div class="skeleton">
+      <div class="skeleton-head"></div>
+      <div class="skeleton-body">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-content"></div>
+      </div>
+    </div>
+
+
+    <br />
+    <br />
+    
+
+    <div class="skeleton skeleton-shining">
+      <div class="skeleton-head"></div>
+      <div class="skeleton-body">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-content"></div>
+      </div>
+    </div>
+
+
+    <br />
+    <br />
+    
+    
+    <div class="skeleton skeleton-move">
+      <div class="skeleton-head"></div>
+      <div class="skeleton-body">
+          <div class="skeleton-title"></div>
+          <div class="skeleton-content"></div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
