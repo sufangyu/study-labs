@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>返回不刷新页面</title>
+  <style>
+  button {
+    border: #0000;
+    background-color: #f90;
+  }
+  .com {
+    position: absolute ;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #888589;
+  }
+  </style>
+</head>
+<body>
+  <p>
+    <button onclick="city()">城市</button>
+  </p>
+  <p>
+    <button onclick="calendar()">日历</button>
+  </p>
+  <p>
+    <button onclick="description()">说明</button>
+  </p>
+
+  <div id="city" class="com" style="display: none;">模拟城市弹框层</div>
+  <div id="calendar" class="com" style="display: none;">模拟日历弹框层</div>
+  <div id="description" class="com" style="display: none;">模拟说明弹框层</div>
+
+  <script>
+  
+    var cityNode = document.getElementById('city');
+    var calendarNode = document.getElementById('calendar');
+    var descriptionNode = document.getElementById('description');
+
+    function city() {
+      cityNode.style.display = 'block';
+      window.history.pushState({'id':'city'},'','#city')
+    }
+    function calendar() {
+      calendarNode.style.display = 'block';
+      window.history.pushState({'id':'calendar'},'','#calendar')
+    }
+    function description() {
+      descriptionNode.style.display = 'block';
+      window.history.pushState({'id':'description'},'','#description')
+    }
+
+    
+    var popstateCallback = {
+      city: function(id) {
+        cityNode.style.display = 'block';
+      },
+      calendar: function() {
+        calendarNode.style.display = 'block';
+      },
+      description: function() {
+        descriptionNode.style.display = 'block';
+      },
+      all: function() {
+        cityNode.style.display = 'none';
+        calendarNode.style.display = 'none';
+        descriptionNode.style.display = 'none';
+      },
+    };
+
+
+    var hash = window.location.hash;
+    if (hash !== '') {
+      var hashStr = hash.substr(1);
+      popstateCallback[hashStr] && popstateCallback[hashStr](hashStr);
+    }
+
+    window.addEventListener("popstate", function(e) {
+      var currentState = e.state;
+      console.log(currentState);
+      if (currentState && currentState.id !== '') {
+        window.history.replaceState({'id': currentState.id},'','#' + currentState.id);
+        popstateCallback[currentState.id] && popstateCallback[currentState.id](currentState.id);
+      } else {
+        popstateCallback.all && popstateCallback.all(); 
+      }
+      
+    });
+
+  </script>
+</body>
+</html>
